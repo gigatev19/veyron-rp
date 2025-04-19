@@ -55,7 +55,7 @@ app.get('/auth/discord/callback', async (req, res) => {
     `);
 
   } catch (err) {
-    console.error('[OAuth2 Fehler]', err.response?.data || err.message);
+    console.error('[OAuth2 Fehler]', err.response && err.response.data ? err.response.data : err.message);
     res.status(500).send('OAuth2 Fehler');
   }
 });
