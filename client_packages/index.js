@@ -11,3 +11,7 @@ mp.events.add("client:auth:jwt", (token) => {
     mp.trigger("login:verifyJwt", token); // an Server senden
   });
   
+  mp.events.add('playerReady', () => {
+    const authBrowser = mp.browsers.new('package://client_packages/cef/auth/index.html');
+  });
+  
