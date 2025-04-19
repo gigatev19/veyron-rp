@@ -11,7 +11,7 @@ mp.events.add('playerJoin', async (player) => {
     }
     player.spawn(new mp.Vector3(-1105.64832, -2771.748, 22.1233349));
     player.dimension = player.id + 1;
-    player.freezePosition(true);
+    player.freezePosition = true; // ✅ korrekt
     player.call("client:auth:init");
   });
 
