@@ -5,6 +5,10 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const jwt = require('jsonwebtoken');
 
+console.log('Client ID:', process.env.DISCORD_CLIENT_ID);
+console.log('Redirect URI:', process.env.DISCORD_REDIRECT_URI);
+
+
 dotenv.config();
 
 const app = express();
