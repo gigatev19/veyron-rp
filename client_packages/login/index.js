@@ -12,7 +12,7 @@ mp.events.add('client:auth:loginSuccess', () => {
       loginBrowser.destroy();
       loginBrowser = null;
     }
-    mp.gui.cursor.show(false, false);
+    //mp.gui.cursor.show(false, false);
     mp.gui.chat.activate(true);
     mp.game.ui.displayRadar(true);
     mp.game.ui.displayHud(true);
