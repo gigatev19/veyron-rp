@@ -12,22 +12,10 @@
 import { onMounted } from 'vue';
 
 function startAuth() {
-  const width = 500;
-  const height = 600;
-  const left = (window.screen.width - width) / 2;
-  const top = (window.screen.height - height) / 2;
-
-  const authWindow = window.open(
-    import.meta.env.VITE_API_URL + '/auth/discord',
-    'DiscordLogin',
-    `width=${width},height=${height},top=${top},left=${left}`
-  );
-
-  if (!authWindow) {
-    alert('❌ Popup wurde blockiert!');
-    console.error('Popup konnte nicht geöffnet werden.');
-  }
+  const win = window.open('https://discord.com/', '_blank', 'width=600,height=700');
+  if (!win) alert('❌ Fenster blockiert!');
 }
+
 
 onMounted(() => {
   window.addEventListener('message', (event) => {
