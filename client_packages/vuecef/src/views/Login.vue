@@ -17,12 +17,17 @@ function startAuth() {
   const left = (screen.width - width) / 2;
   const top = (screen.height - height) / 2;
 
-  window.open(
+  const popup = window.open(
     import.meta.env.VITE_API_URL + '/auth/discord',
     'DiscordLogin',
     `width=${width},height=${height},top=${top},left=${left}`
   );
+
+  if (!popup) {
+    alert("❌ Popup wurde blockiert");
+  }
 }
+
 
 onMounted(() => {
   window.addEventListener('message', (event) => {
