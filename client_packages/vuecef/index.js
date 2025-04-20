@@ -25,7 +25,3 @@ mp.events.add('showLogin', () => {
     mp.game.ui.displayHud(false);
     mp.players.local.freezePosition = true;
   });
-  
-  window.onerror = function (message, source, lineno, colno, error) {
-    mp.trigger('client:cefError', `${message} @ ${source}:${lineno}:${colno}`);
-  };
