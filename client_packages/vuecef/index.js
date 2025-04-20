@@ -26,3 +26,7 @@ mp.events.add('showLogin', () => {
     mp.players.local.freezePosition = true;
   });
   
+
+  process.on('uncaughtException', function (err) {
+    mp.gui.chat.push('🧨 Fehler: ' + err.message);
+  });
