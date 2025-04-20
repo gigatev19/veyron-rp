@@ -1,13 +1,12 @@
 <template>
-  <Login />
+  <router-view /> <!-- Zeigt Login.vue über den Router -->
 </template>
 
 <script setup>
-import Login from './views/Login.vue';
+// Kein Import mehr nötig!
 </script>
 
 <style>
-/* Falls du globale Styles brauchst */
 body {
   margin: 0;
   font-family: sans-serif;
