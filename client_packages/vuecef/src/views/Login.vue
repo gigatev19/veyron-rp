@@ -9,35 +9,10 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
-
 function startAuth() {
-  const width = 500;
-  const height = 600;
-  const left = (window.screen.width - width) / 2;
-  const top = (window.screen.height - height) / 2;
-
-  // Direktes Öffnen durch Buttonclick – wichtig!
-  const popup = window.open(
-    `${import.meta.env.VITE_API_URL}/auth/discord`,
-    '_blank',
-    `width=${width},height=${height},left=${left},top=${top}`
-  );
-
-  if (!popup || popup.closed || typeof popup.closed === 'undefined') {
-    alert('❌ Das Login-Fenster konnte nicht geöffnet werden. Bitte Popups erlauben.');
-  }
+  // Trigger an RageMP senden
+  mp.trigger('client:openDiscordAuth');
 }
-
-// JWT empfangen
-onMounted(() => {
-  window.addEventListener('message', (event) => {
-    if (event.data?.jwt) {
-      console.log("✅ JWT empfangen:", event.data.jwt);
-      mp.trigger('client:authJwt', event.data.jwt);
-    }
-  });
-});
 </script>
 
 <style scoped>
