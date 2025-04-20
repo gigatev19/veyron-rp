@@ -2,6 +2,7 @@
 let loginBrowser = null;
 
 mp.events.add('playerReady', () => {
+    mp.gui.chat.push("✅ login/index.js wurde geladen");
   mp.events.call('showLogin');
   mp.gui.cursor.show(true, true); // Cursor anzeigen
   mp.gui.chat.activate(false); // Chat deaktivieren
