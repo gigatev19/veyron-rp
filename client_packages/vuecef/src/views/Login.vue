@@ -17,28 +17,28 @@ function startAuth() {
   const left = (window.screen.width - width) / 2;
   const top = (window.screen.height - height) / 2;
 
-  const authWindow = window.open(
-    import.meta.env.VITE_API_URL + '/auth/discord',
-    'DiscordLogin',
-    `width=${width},height=${height},top=${top},left=${left}`
+  // Direktes Öffnen durch Buttonclick – wichtig!
+  const popup = window.open(
+    `${import.meta.env.VITE_API_URL}/auth/discord`,
+    '_blank',
+    `width=${width},height=${height},left=${left},top=${top}`
   );
 
-  if (!authWindow) {
-    alert('❌ Popup wurde blockiert!');
-    console.error('Popup konnte nicht geöffnet werden.');
+  if (!popup || popup.closed || typeof popup.closed === 'undefined') {
+    alert('❌ Das Login-Fenster konnte nicht geöffnet werden. Bitte Popups erlauben.');
   }
 }
 
+// JWT empfangen
 onMounted(() => {
   window.addEventListener('message', (event) => {
     if (event.data?.jwt) {
-      console.log('✅ JWT empfangen:', event.data.jwt);
+      console.log("✅ JWT empfangen:", event.data.jwt);
       mp.trigger('client:authJwt', event.data.jwt);
     }
   });
 });
 </script>
-
 
 <style scoped>
 .login-wrapper {
