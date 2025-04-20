@@ -12,8 +12,7 @@
 import { onMounted } from 'vue';
 
 function startAuth() {
-  const win = window.open('https://discord.com/', '_blank', 'width=600,height=700');
-  if (!win) alert('❌ Fenster blockiert!');
+  mp.trigger('client:auth:openDiscord');
 }
 
 

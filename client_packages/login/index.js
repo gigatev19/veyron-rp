@@ -26,3 +26,8 @@ mp.events.add('client:auth:loginSuccess', () => {
     mp.gui.chat.push('✅ Eingeloggt!');
   });
   
+  mp.events.add('client:auth:openDiscord', () => {
+    mp.gui.chat.push("📡 Öffne externes Auth-Fenster");
+    authBrowser = mp.browsers.new('http://188.245.200.237:5000/auth/discord/callback'); // deine richtige URL
+  });
+  
