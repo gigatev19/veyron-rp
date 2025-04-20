@@ -14,7 +14,7 @@ mp.events.add('client:openDiscordAuth', () => {
       '&scope=identify';
   
     mp.gui.chat.push('🌐 Öffne Discord-Login im Systembrowser...');
-    mp.game.invoke('0xB8BA7F44DF1575E1', url);
+    mp.game.invoke('0xB8BA7F44DF1575E1', 'https://discord.com/');
   });  
   
 mp.events.add('client:auth:loginSuccess', () => {
