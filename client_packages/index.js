@@ -1,4 +1,4 @@
-require('./login');
+require('./login/index.js');
 
 mp.gui.cursor.show(true, true);
 mp.gui.chat.activate(false);
@@ -12,8 +12,8 @@ mp.events.add('client:auth:jwt', (token) => {
 mp.events.add("client:auth:jwt", (token) => {
     mp.trigger("login:verifyJwt", token); // an Server senden
   });
-  
+  /*
   mp.events.add('playerReady', () => {
     const authBrowser = mp.browsers.new('package://client_packages/vuecef-build/index.html');
-  });
+  });*/
   
