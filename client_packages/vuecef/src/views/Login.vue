@@ -3,7 +3,7 @@
     <div class="background-overlay" />
     <div class="login-card">
       <h2>Willkommen bei Veyron RP</h2>
-      <button @click="startAuth">Mit Discord einloggen</button>
+      <button @click="startAuth">Mit Discord registrieren</button>
     </div>
   </div>
 </template>
@@ -27,7 +27,7 @@ function startAuth() {
 
 /* Hintergrundbild */
 .background-overlay {
-  background-image: url('@/assets/bg.png'); /* hier dein Bild einfügen */
+  background-image: url('../assets/bg.png'); /* hier dein Bild einfügen */
   background-size: cover;
   background-position: center;
   filter: blur(4px) brightness(0.7);

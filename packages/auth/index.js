@@ -28,48 +28,31 @@ mp.events.add('playerJoin', async (player) => {
     }
   });
   
+// server/packages/auth/index.js
 mp.events.add('server:auth:verifyJwt', async (player, token) => {
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const discordId = decoded.discord_id;
-    const username = decoded.username;
-
-    // In DB nachschauen, ob Account existiert
-    const result = await pool.query(
-      'SELECT * FROM accounts WHERE discord_id = $1',
-      [discordId]
-    );
-
-    if (result.rows.length > 0) {
-      const account = result.rows[0];
-      player.discordId = account.discord_id;
-      player.accountId = account.id;
-      player.outputChatBox(`[AUTH] Willkommen zurück, ${account.username}`);
-
-      // Weiter zu Char-UI
-      player.call('client:auth:showCharacterMenu');
-    } else {
-      // Neuer Account → erstelle in DB
-      const insert = await pool.query(
-        'INSERT INTO accounts (discord_id, username) VALUES ($1, $2) RETURNING id',
-        [discordId, username]
-      );
-
-      player.discordId = discordId;
-      player.accountId = insert.rows[0].id;
-      player.outputChatBox(`[AUTH] Account angelegt: ${username}`);
-
-      // Dann zur Charaktererstellung
-      player.call('client:auth:showCharacterMenu');
+    try {
+      const jwt = require('jsonwebtoken');
+      const payload = jwt.verify(token, process.env.JWT_SECRET);
+      const discordId = payload.discord_id;
+  
+      const result = await pool.query('SELECT * FROM accounts WHERE discord_id = $1', [discordId]);
+  
+      if (result.rows.length > 0) {
+        // Spieler existiert, login & spawn
+        player.outputChatBox('✅ Willkommen zurück!');
+        player.call('client:auth:loginSuccess');
+      } else {
+        // Spieler nicht gefunden – Registrierung nötig
+        await pool.query('INSERT INTO accounts (discord_id, username) VALUES ($1, $2)', [discordId, payload.username]);
+  
+        player.outputChatBox('✅ Account erstellt!');
+        player.call('client:auth:loginSuccess');
+      }
+    } catch (err) {
+      console.error('[AUTH]', err.message);
+      player.call('client:auth:loginFailed');
     }
-
-    player.alpha = 255;
-    player.freezePosition(true); // bleibt eingefroren bis Char ausgewählt
-  } catch (err) {
-    console.log('❌ JWT Fehler:', err.message);
-    player.kick('Ungültiger Login. Bitte neu verbinden.');
-  }
-});
+  });  
 
 mp.events.add('auth:loginJwt', async (player, token) => {
     try {
