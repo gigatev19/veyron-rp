@@ -7,8 +7,9 @@ mp.events.add('playerReady', () => {
 });
 
 mp.events.add('client:authJwt', (jwt) => {
+    mp.gui.chat.push("✅ JWT vom Login erhalten!");
     mp.events.callRemote('server:auth:verifyJwt', jwt);
-  });  
+});
 
 // client_packages/login/index.js
 mp.events.add('client:auth:loginSuccess', () => {

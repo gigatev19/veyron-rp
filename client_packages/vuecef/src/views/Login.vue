@@ -9,25 +9,23 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted } from 'vue';
 
 function startAuth() {
   const width = 500;
-  const height = 700;
-  const left = (screen.width - width) / 2;
-  const top = (screen.height - height) / 2;
+  const height = 600;
+  const left = (window.screen.width - width) / 2;
+  const top = (window.screen.height - height) / 2;
 
-  const authPopup = window.open(
+  const authWindow = window.open(
     import.meta.env.VITE_API_URL + '/auth/discord',
     'DiscordLogin',
     `width=${width},height=${height},top=${top},left=${left}`
   );
 
-  if (!authPopup) {
-    alert('❌ Popup wurde blockiert. Bitte Popup-Blocker deaktivieren!');
+  if (!authWindow) {
+    alert('❌ Popup wurde blockiert!');
     console.error('Popup konnte nicht geöffnet werden.');
-  } else {
-    console.log('✅ Auth-Popup geöffnet');
   }
 }
 

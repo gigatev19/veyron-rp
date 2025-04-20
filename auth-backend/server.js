@@ -85,8 +85,6 @@ app.get('/auth/discord/callback', async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: '1h' }
     );
-    
-  
 
     // 🧩 Vue CEF antworten
     res.send(`
