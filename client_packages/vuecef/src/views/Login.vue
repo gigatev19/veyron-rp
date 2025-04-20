@@ -12,13 +12,21 @@
 import { onMounted } from 'vue';
 
 function startAuth() {
-  const popup = window.open(import.meta.env.VITE_API_URL + '/auth/discord', '_blank', 'width=500,height=600');
-  
-  window.addEventListener('message', (event) => {
-    if (event.data?.jwt) {
-      mp.trigger('client:auth:jwt', event.data.jwt);
-    }
-  });
+  const width = 500;
+  const height = 600;
+  const left = (window.screen.width - width) / 2;
+  const top = (window.screen.height - height) / 2;
+
+  const authWindow = window.open(
+    import.meta.env.VITE_API_URL + '/auth/discord',
+    'DiscordLogin',
+    `width=${width},height=${height},top=${top},left=${left}`
+  );
+
+  if (!authWindow) {
+    alert('❌ Popup wurde blockiert!');
+    console.error('Popup konnte nicht geöffnet werden.');
+  }
 }
 
 onMounted(() => {

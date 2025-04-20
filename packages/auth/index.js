@@ -21,3 +21,17 @@ mp.events.add('playerJoin', async (player) => {
     player.dimension = player.id + 1;
     player.freezePosition = true; // ✅ korrekt
   });
+
+  mp.events.add("server:auth:verifyJwt", (player, token) => {
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      player.discordId = decoded.discord_id;
+      player.name = decoded.username;
+  
+      console.log(`[AUTH] ${player.name} (${player.discordId}) erfolgreich eingeloggt.`);
+      player.call("client:auth:loginSuccess");
+    } catch (err) {
+      console.error("[JWT Fehler]", err.message);
+      player.kick("JWT ungültig.");
+    }
+  });
