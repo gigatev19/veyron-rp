@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted } from 'vue'
 
 function startAuth() {
   const width = 500;
@@ -17,26 +17,30 @@ function startAuth() {
   const left = (screen.width - width) / 2;
   const top = (screen.height - height) / 2;
 
-  const popup = window.open(
+  const authPopup = window.open(
     import.meta.env.VITE_API_URL + '/auth/discord',
     'DiscordLogin',
     `width=${width},height=${height},top=${top},left=${left}`
   );
 
-  if (!popup) {
-    alert("❌ Popup wurde blockiert");
+  if (!authPopup) {
+    alert('❌ Popup wurde blockiert. Bitte Popup-Blocker deaktivieren!');
+    console.error('Popup konnte nicht geöffnet werden.');
+  } else {
+    console.log('✅ Auth-Popup geöffnet');
   }
 }
-
 
 onMounted(() => {
   window.addEventListener('message', (event) => {
     if (event.data?.jwt) {
+      console.log('✅ JWT empfangen:', event.data.jwt);
       mp.trigger('client:authJwt', event.data.jwt);
     }
   });
 });
 </script>
+
 
 <style scoped>
 .login-wrapper {
