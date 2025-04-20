@@ -1,4 +1,5 @@
 require('./login/index.js');
+require('./vuecef/index.js');
 
 mp.gui.cursor.show(true, true);
 //mp.gui.chat.activate(false);
