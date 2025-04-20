@@ -1,3 +1,5 @@
+require('./login');
+
 mp.gui.cursor.show(true, true);
 mp.gui.chat.activate(false);
 mp.gui.chat.show(false);
@@ -12,6 +14,6 @@ mp.events.add("client:auth:jwt", (token) => {
   });
   
   mp.events.add('playerReady', () => {
-    const authBrowser = mp.browsers.new('package://client_packages/cef/auth/index.html');
+    const authBrowser = mp.browsers.new('package://client_packages/vuecef-build/index.html');
   });
   
