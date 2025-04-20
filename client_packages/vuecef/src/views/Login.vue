@@ -10,9 +10,16 @@
 
 <script setup>
 function startAuth() {
-  window.postMessage({ type: 'open-auth' }, '*');
+  console.log('👋 Button clicked');
+  if (typeof mp !== 'undefined') {
+    console.log('✅ mp ist verfügbar');
+    //mp.trigger('client:openDiscordAuth');
+    window.postMessage({ type: 'open-auth' }, '*');
+  } else {
+    console.warn('❌ mp ist nicht verfügbar');
+  }
 }
-</script>
+</script>window.postMessage({ type: 'open-auth' }, '*');
 
 <style scoped>
 .login-wrapper {

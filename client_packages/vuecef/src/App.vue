@@ -3,7 +3,20 @@
 </template>
 
 <script setup>
-// Kein Import mehr nötig!
+onMounted(() => {
+  // Fehler-Logging (JS Fehler)
+  window.onerror = function (message, source, lineno, colno, error) {
+    mp.trigger('client:cefError', `${message} @ ${source}:${lineno}:${colno}`);
+  };
+
+  // Beispiel-Log Trigger aus Vue
+  mp.trigger('client:cefLog', '✅ Vue App loaded');
+
+  // Bei Klick oder Aktion z.B.:
+  window.testDebug = () => {
+    mp.trigger('client:cefLog', '👋 Test von Vue aus!');
+  };
+});
 </script>
 
 <style>

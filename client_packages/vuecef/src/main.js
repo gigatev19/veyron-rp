@@ -12,3 +12,7 @@ app.use(createPinia())
 app.use(router)
 
 app.mount('#app')
+
+window.onerror = function (message, source, lineno, colno, error) {
+    window.mp && window.mp.trigger && window.mp.trigger('client:cefError', `${message} @ ${source}:${lineno}:${colno}`);
+  };

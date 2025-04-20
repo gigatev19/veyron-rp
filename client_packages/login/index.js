@@ -33,4 +33,10 @@ mp.events.add('client:auth:loginSuccess', () => {
   
 mp.events.add('client:cefError', (msg) => {
     mp.gui.chat.push(`⚠️ CEF Error: ${msg}`);
+    mp.console.logInfo(`[CEF] ${msg}`);
 });
+
+mp.events.add('client:cefLog', (msg) => {
+    mp.gui.chat.push(`💬 ${msg}`);
+    mp.console.logInfo(`[CEF-LOG] ${msg}`);
+  });
