@@ -6,10 +6,14 @@ const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
-
-// 🧪 Debug ENV
-console.log('[DEBUG] Client ID:', process.env.DISCORD_CLIENT_ID);
-console.log('[DEBUG] Redirect URI:', process.env.DISCORD_REDIRECT_URI);
+const { Pool } = require('pg');
+const db = new Pool({
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASS,
+  port: process.env.DB_PORT
+});
 
 // 🚀 App Setup
 const app = express();
@@ -53,11 +57,36 @@ app.get('/auth/discord/callback', async (req, res) => {
     const user = userResponse.data;
 
     // 🧠 JWT erstellen
+    let account = null;
+
+    // 🔍 Check ob Account schon existiert
+    const existing = await db.query('SELECT * FROM accounts WHERE discord_id = $1', [user.id]);
+    
+    if (existing.rows.length > 0) {
+      account = existing.rows[0];
+      console.log(`[LOGIN] Willkommmen zurück, ${account.username}`);
+    } else {
+      // ➕ Account erstellen
+      const insert = await db.query(
+        'INSERT INTO accounts (discord_id, username, created_at) VALUES ($1, $2, NOW()) RETURNING *',
+        [user.id, user.username]
+      );
+      account = insert.rows[0];
+      console.log(`[REGISTER] Neuer Account erstellt für ${account.username}`);
+    }
+    
+    // 🧠 JWT mit Account-Daten
     const token = jwt.sign(
-      { discord_id: user.id, username: user.username },
+      {
+        discord_id: account.discord_id,
+        username: account.username,
+        isNew: existing.rows.length === 0 // true wenn neu registriert
+      },
       process.env.JWT_SECRET,
       { expiresIn: '1h' }
     );
+    
+  
 
     // 🧩 Vue CEF antworten
     res.send(`

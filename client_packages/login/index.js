@@ -6,6 +6,10 @@ mp.events.add('playerReady', () => {
   mp.events.call('showLogin');
 });
 
+mp.events.add('client:authJwt', (jwt) => {
+    mp.events.callRemote('server:auth:verifyJwt', jwt);
+  });  
+
 // client_packages/login/index.js
 mp.events.add('client:auth:loginSuccess', () => {
     if (loginBrowser) {

@@ -9,9 +9,28 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue';
+
 function startAuth() {
-  window.location.href = import.meta.env.VITE_API_URL + '/api/auth/discord';
+  const width = 500;
+  const height = 700;
+  const left = (screen.width - width) / 2;
+  const top = (screen.height - height) / 2;
+
+  window.open(
+    import.meta.env.VITE_API_URL + '/auth/discord',
+    'DiscordLogin',
+    `width=${width},height=${height},top=${top},left=${left}`
+  );
 }
+
+onMounted(() => {
+  window.addEventListener('message', (event) => {
+    if (event.data?.jwt) {
+      mp.trigger('client:authJwt', event.data.jwt);
+    }
+  });
+});
 </script>
 
 <style scoped>
