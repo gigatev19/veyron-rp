@@ -32,7 +32,7 @@ function startAuth() {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('@/assets/bg.png');
+  background-image: url('../assets/bg.png');
   background-size: cover;
   background-position: center;
   filter: blur(4px) brightness(0.7);
