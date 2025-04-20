@@ -16,26 +16,26 @@ function startAuth() {
 
 <style scoped>
 .login-wrapper {
-  height: 100vh;
-  width: 100vw;
-  position: relative;
+  position: fixed; /* damit er die ganze Fläche abdeckt */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
 }
 
-/* Hintergrundbild */
 .background-overlay {
-  background-image: url('../assets/bg.png'); /* hier dein Bild einfügen */
-  background-size: cover;
-  background-position: center;
-  filter: blur(4px) brightness(0.7);
   position: absolute;
   top: 0;
   left: 0;
-  height: 100%;
   width: 100%;
+  height: 100%;
+  background-image: url('@/assets/bg.png');
+  background-size: cover;
+  background-position: center;
+  filter: blur(4px) brightness(0.7);
   z-index: 0;
 }
 
