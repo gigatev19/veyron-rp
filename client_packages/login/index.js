@@ -15,7 +15,7 @@ mp.events.add('client:openDiscordAuth', () => {
   
     mp.gui.chat.push('🌐 Öffne Discord-Login im Systembrowser...');
     mp.game.invoke('0xB8BA7F44DF1575E1', 'https://discord.com/');
-  });  
+});  
   
 mp.events.add('client:auth:loginSuccess', () => {
     if (loginBrowser) {
@@ -28,5 +28,8 @@ mp.events.add('client:auth:loginSuccess', () => {
     mp.players.local.freezePosition = false;
     mp.players.local.setCoords(222.5, -889.0, 30.7); // <- hier deine Spawnkoordinate
     mp.gui.chat.push('✅ Eingeloggt & gespawnt');
-  });
+});
   
+mp.events.add('client:cefError', (msg) => {
+    mp.gui.chat.push(`⚠️ CEF Error: ${msg}`);
+});

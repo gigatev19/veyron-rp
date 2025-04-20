@@ -26,7 +26,6 @@ mp.events.add('showLogin', () => {
     mp.players.local.freezePosition = true;
   });
   
-
-  process.on('uncaughtException', function (err) {
-    mp.gui.chat.push('🧨 Fehler: ' + err.message);
-  });
+  window.onerror = function (message, source, lineno, colno, error) {
+    mp.trigger('client:cefError', `${message} @ ${source}:${lineno}:${colno}`);
+  };
