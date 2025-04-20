@@ -11,7 +11,16 @@ mp.events.add('client:openDiscordAuth', () => {
     mp.game.invoke('0xB8BA7F44DF1575E1', url); // Systembrowser öffnen
 });  
 
-mp.events.add('client:authJwt', (jwt) => {
-    mp.gui.chat.push("✅ JWT vom Login erhalten!");
-    mp.events.callRemote('server:auth:verifyJwt', jwt);
-});
+mp.events.add('client:auth:loginSuccess', () => {
+    if (loginBrowser) {
+      loginBrowser.destroy();
+      loginBrowser = null;
+    }
+  
+    mp.gui.cursor.show(false, false);
+    mp.gui.chat.activate(true);
+    mp.players.local.freezePosition = false;
+    mp.players.local.setCoords(222.5, -889.0, 30.7); // <- hier deine Spawnkoordinate
+    mp.gui.chat.push('✅ Eingeloggt & gespawnt');
+  });
+  
