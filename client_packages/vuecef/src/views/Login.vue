@@ -10,8 +10,7 @@
 
 <script setup>
 function startAuth() {
-  // Trigger an RageMP senden
-  mp.trigger('client:openDiscordAuth');
+  window.postMessage({ type: 'open-auth' }, '*');
 }
 </script>
 

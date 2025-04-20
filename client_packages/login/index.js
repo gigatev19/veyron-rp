@@ -7,10 +7,16 @@ mp.events.add('playerReady', () => {
 });
 
 mp.events.add('client:openDiscordAuth', () => {
-    const url = 'https://discord.com/api/oauth2/authorize?client_id=1363157378211516637&redirect_uri=http://188.245.200.237:5000/auth/discord/callback&response_type=code&scope=identify';
-    mp.game.invoke('0xB8BA7F44DF1575E1', url); // Systembrowser öffnen
-});  
-
+    const url = 'https://discord.com/api/oauth2/authorize' +
+      '?client_id=1363157378211516637' +
+      '&redirect_uri=http%3A%2F%2F188.245.200.237%3A5000%2Fauth%2Fdiscord%2Fcallback' +
+      '&response_type=code' +
+      '&scope=identify';
+  
+    mp.gui.chat.push('🌐 Öffne Discord-Login im Systembrowser...');
+    mp.game.invoke('0xB8BA7F44DF1575E1', url);
+  });  
+  
 mp.events.add('client:auth:loginSuccess', () => {
     if (loginBrowser) {
       loginBrowser.destroy();
