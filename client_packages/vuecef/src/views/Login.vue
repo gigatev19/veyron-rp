@@ -12,9 +12,14 @@
 import { onMounted } from 'vue';
 
 function startAuth() {
-  mp.trigger('client:auth:openDiscord');
+  const popup = window.open(import.meta.env.VITE_API_URL + '/auth/discord', '_blank', 'width=500,height=600');
+  
+  window.addEventListener('message', (event) => {
+    if (event.data?.jwt) {
+      mp.trigger('client:auth:jwt', event.data.jwt);
+    }
+  });
 }
-
 
 onMounted(() => {
   window.addEventListener('message', (event) => {
